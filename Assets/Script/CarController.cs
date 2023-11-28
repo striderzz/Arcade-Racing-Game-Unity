@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+public enum cartype { player,cop}
+
 public class CarController : MonoBehaviour
 {
     public Rigidbody rb;
@@ -21,16 +23,27 @@ public class CarController : MonoBehaviour
     public bool grounded;
     public TMP_Text speedtext;
 
+    public cartype ct;
+
     private void Update()
     {
-        vertical = Input.GetAxis("Vertical");
-        horizontal = Input.GetAxis("Horizontal");
+        if (ct == cartype.player)
+        {
+            vertical = Input.GetAxis("Vertical");
+            horizontal = Input.GetAxis("Horizontal");
+        }
 
 
+        
         RotateCar();
         
         UpdateUI();
        
+    }
+    public void GetAIInput(float verticalInput, float horizontalInput)
+    {
+        vertical = verticalInput;
+        horizontal = horizontalInput;
     }
     private void LateUpdate()
     {
